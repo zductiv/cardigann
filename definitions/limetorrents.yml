@@ -1,0 +1,40 @@
+---
+  site: limetorrents
+  name: limetorrents
+  language: en-us
+  links:
+    - https://www.limetorrents.cc/
+
+  caps:
+    categories:
+      "TV shows": TV
+      "Movies": Movies
+      "Other": Other/Misc
+      "Anime": TV/Anime
+
+    modes:
+      tv-search: [q, season, ep]
+
+  search:
+    path: "{{if .Query.Keywords}}search/tv/{{ .Query.Keywords}}{{else}}/{{end}}"
+    rows:
+      selector: ".table2 tbody tr[bgcolor]"
+    fields:
+      title:
+        selector: .tdleft
+      size:
+        selector: td:nth-child(3)
+      seeders:
+        selector: .tdseed
+      leechers:
+        selector: .tdleech
+      date:
+        selector: td:nth-child(2)
+        filters:
+          - name: split
+            args: [ " -", 0 ]
+      download:
+        selector: .tt-name > a.csprite_dl14
+        attribute: href
+      category:
+        text: "TV shows"
