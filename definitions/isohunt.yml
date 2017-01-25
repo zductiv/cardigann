@@ -1,0 +1,51 @@
+---
+  site: isohunt
+  name: isohunt
+  language: en-us
+  encoding: UTF-8
+  links:
+    - https://isohunt.to/
+
+  caps:
+    categories:
+      "series+&+tv": TV
+      "movies": Movies
+      "other": Other/Misc
+      "music": Audio
+      "games": PC/Games
+      "software": PC/0day
+      "anime": TV/Anime
+      "adult": XXX
+      "books": Other
+
+    modes:
+      search: [q]
+      tv-search: [q, season, ep]
+
+  search:
+    path: "{{if .Query.Keywords}}torrents/?ihq={{ .Query.Keywords}}/{{else}}/latest.php{{end}}"
+    rows:
+      selector: "#serps > table > tbody > tr"
+    fields:
+      title:
+        selector: td.title-row > a[href^="/"] > span
+      details:
+        selector: td.title-row > a[href^="/"]
+        attribute: href
+      size:
+        selector: td.size-row
+      seeders:
+        selector: td.sy
+      date:
+        selector: td.date-row
+        filters:
+          - name: append
+            args: " ago"
+      category:
+        selector: td.category-row > span
+        attribute: title
+#     Download link is not shown on the results page. Does not look like the link can be constructed without 
+#			information from downloads link.
+#      download:
+#        selector: 
+#        attribute: 
