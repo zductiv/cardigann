@@ -22,6 +22,9 @@
       search: [q]
       tv-search: [q, season, ep]
 
+  download:
+    selector: a[href^="https://torrent.isohunt.to/download.php?id="]
+
   search:
     path: "{{if .Query.Keywords}}torrents/?ihq={{ .Query.Keywords}}/{{else}}/latest.php{{end}}"
     rows:
@@ -44,8 +47,6 @@
       category:
         selector: td.category-row > span
         attribute: title
-#     Download link is not shown on the results page. Does not look like the link can be constructed without 
-#			information from downloads link.
-#      download:
-#        selector: 
-#        attribute: 
+      download:
+        selector: td.title-row > a[href^="/"]
+        attribute: href
