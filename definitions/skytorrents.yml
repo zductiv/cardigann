@@ -1,0 +1,44 @@
+---
+  site: skytorrents
+  name: skytorrents
+  language: en-us
+  encoding: UTF-8
+  links:
+    - https://www.skytorrents.in/
+
+  caps:
+    categories:
+      TV: TV
+      Movies: Movies
+
+    modes:
+      search: [q]
+      tv-search: [q, season, ep]
+
+  search:
+    path: "{{if .Query.Keywords}}search/all/ss/1/{{ .Query.Keywords}}{{else}}search/all/ad/1/{{end}}"
+    rows:
+      selector: "table > tbody > tr"
+    fields:
+      title:
+        selector: td a:first-child[title]
+        details:
+          selector: td a:first-child
+          attribute: href
+      size:
+        selector: td:nth-child(2)
+      seeders:
+        selector: td:nth-child(5)
+      leechers:
+        selector: td:nth-child(6)
+      date:
+        selector: td:nth-child(4)
+      download:
+        selector: td> a[href^="/file"]
+        attribute: href
+      category:
+        text: "TV"
+      downloadvolumefactor:
+        text: "0"
+      uploadvolumefactor:
+        text: "1"
